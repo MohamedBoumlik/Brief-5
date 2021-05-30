@@ -1,101 +1,103 @@
 <?php
 
-class Connetcion{
-    public $servername= "localhost";
-    public $dbname= "mvc";
-    public $user="root";
-    public $pass="";
-    private $con;
-    
-    static function config(){
-        try{
-            $this->con = new PDO("mysql: host = localhost; dbname = mvc", "root","");
-            return $con;
-        }catch(PDOException $e){
-            print "Connetion Failde :" . $e->getMessage() . "<br>";
-        }
-    }
+class Connection {
+   public $servername = 'localhost';
+   public $username = 'root';
+   public $dbname = 'mvc';
+   public $password = '';
+   public $sql;
 
 
-//------------------------------------ select
-
-    function getAll($table){
-        $qry="select * from salle ";
-        $this->con->query($qry);
-        return $this->con->query($qry)->fetchAll();
-
-        // if($row=$res->fetchAll()){
-        //   return $row;
+   function __construct()
+   {
+      try {
+         $this->sql = new PDO("mysql:host=$this->servername;dbname=$this->dbname", $this->username, $this->password);
             
-        // }
-        // else{
-        //     echo "n exec";
+         } catch(PDOException $e) {
+            echo "connection failde: " . $e->getMessage();
+         }
+   } 
 
-        // }
-    }
+//    --------------------------------------select
 
-//------------------------------------ delete
+   function select($table)
+   {
+      $qry="select * from ".$table;
+      return $this->sql->query($qry)->fetchAll();
+   }
 
-    function delete($table,$id){
-        $qry = "delete from " .$table. "where id=" .$id;
-        $this->con->query($qry);
-    }
+//    --------------------------------------delete
 
+   function delete($table,$id)
+   {
+      $qry="delete from ".$table." where id=".$id;
+      $this->sql->query($qry);
+   }
 
-//------------------------------------insert
+//    --------------------------------------insert
+   
+   function insert($table,$tabName, $tabValue)
+   {
+      $name="";
+      $value="";
+      $vrg=""; 
+      for($i=0;$i<count($tabName);$i++)
+      {
+         if($i>0)
+         {
+            $vrg=",";
+         }
 
-    function insert($table, $tabName, $tabValue){
-        $name = "";
-        $value = "";
-        $vrg = "";
-        
-        for($i=0 ; $i<count($tabName) ; $i++){
+         $name.=$vrg."`".$tabName[$i]."`";
+      }
+      
+      $vrg="";
+      for($i=0;$i<count($tabValue);$i++)
+      {
+         if($i>0)
+         {
+            $vrg=",";
+         }
+         $value.=$vrg."'".$tabValue[$i]."'";
+      }
+      $qry="INSERT INTO ".$table." (".$name.") VALUES (".$value.")";
+      $this->sql->query($qry);
+   }
 
-            if($i>0){
-                $vrg = ",";
-            }
+//    --------------------------------------update
 
-            $name.= $vrg."`".$tabName[$i]."`";
-        }
+   function update($table,$tabName, $tabValue,$id)
+   {
+      $name="";
+      $value="";
+      for($i=0;$i<count($tabName);$i++)
+      {
+         $vrg="";
+         if($i>0)
+         {
+            $vrg=",";
+         }
+         $name.=$vrg."`".$tabName[$i]."`='".$tabValue[$i]."'";
+      }
+      
+      $qry="UPDATE ".$table." SET ".$name." WHERE id=".$id;
+      $this->sql->query($qry);
+   }
 
-        $vrg="";
-        for($i=0 ; $i<count($tabValue) ; $i++){
+//    --------------------------------------select
 
-            if(i>0){
-                $vrg = ",";
-            }
+   function edit($table,$id)
+   {
+      $qry="select * from ".$table." where id=".$id;
+      return $this->sql->query($qry)->fetchAll()[0];
+   }
 
-            $value.= $vrg."`".$tabValue[$i]."`";
-        }
-        
-        $qry="INSERT INTO ".$table." (".$name.") VALUES (".$value.")";
-        $this->con->query($qry);
-    }
-
-//------------------------------------update
-
-    function update($table, $tabName ,$tabValue , $id){
-        $name = "";
-        $value = "";
-        $vrg = "";
-
-        for($i=0 ; $i<count($tabName) ; $i++){
-
-            if($i>0){
-                $vrg = ",";
-            }
-
-            $name.= $vrg."`".$tabName[$i]."`='".$tabValue[$i]."'";
-        }
-
-        $qry="UPDATE ".$table." SET ".$name." WHERE id=".$id;
-        $this->sql->query($qry);
-    }
-
-//------------------------------------edite
-
-    function edit($table , $id){
-        $qry = "select * from ".$table." where id=".$id;
-        return $this->con->query($qry)->fetchAll();
-    }
+   function selectById($table,$id)
+   {
+      $qry="select * from ".$table." where id=".$id;
+      return $this->sql->query($qry)->fetchAll()[0];
+   }
 }
+
+
+

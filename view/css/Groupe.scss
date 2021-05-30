@@ -1,10 +1,7 @@
 body{
-   #nav{
+    #nav{
         height: 50px;
         background-color: rgb(46, 46, 46);
-
-        
-        
 
         ul{
         
@@ -22,16 +19,14 @@ body{
             li{
                 .active{
                     color:rgb(139, 139, 139) !important;
-                    // font-size: xx-large;
                 }
         
             }
         }
     }
 
-   #salleForm{
-       margin-top: 20px;
-    
+    #groupeForm{
+        margin-top: 20px;
         #inputs{
             width: 70%;
             margin-left: 15%;
@@ -40,13 +35,10 @@ body{
             }
         }
 
-        .butt{
-            margin-top: 15px;
-        }
-
         button{
             margin-top: 15px;
         }
+       
     }
 
     #table{

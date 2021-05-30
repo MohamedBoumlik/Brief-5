@@ -23,24 +23,20 @@ body #nav ul li .active {
   color: #8b8b8b !important;
 }
 
-body #salleForm {
+body #groupeForm {
   margin-top: 20px;
 }
 
-body #salleForm #inputs {
+body #groupeForm #inputs {
   width: 70%;
   margin-left: 15%;
 }
 
-body #salleForm #inputs label {
+body #groupeForm #inputs label {
   color: black;
 }
 
-body #salleForm .butt {
-  margin-top: 15px;
-}
-
-body #salleForm button {
+body #groupeForm button {
   margin-top: 15px;
 }
 
@@ -58,4 +54,4 @@ body #table th {
   vertical-align: middle;
   text-align: center;
 }
-/*# sourceMappingURL=Salle.css.map */
+/*# sourceMappingURL=Groupe.css.map */

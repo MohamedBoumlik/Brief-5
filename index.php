@@ -5,10 +5,10 @@ $params=explode('/',$_GET['p']);
 
 if (isset($params[0]) & !empty($params[0])) 
 {
-	$controller=ucfirst($params[0]).'Contro';
+	$controller=ucfirst($params[0])."Contro";
 	if (file_exists("controller/".$controller.".php")) 
 	{	
-
+		
 		require_once 'controller/'.$controller.".php";
 		$obj=new $controller();
 		if (isset($params[1]) & !empty($params[1])) 
@@ -43,8 +43,8 @@ if (isset($params[0]) & !empty($params[0]))
 	
 }else
 {
-	// require_once "controller/Home.php";
-	// $obj=new Home();
-	// $obj->index();
-	echo "index";
+	require_once "controller/loginContro.php";
+	$obj=new LoginContro();
+	$obj->index();
+	
 }
